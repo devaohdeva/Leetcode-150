@@ -1,12 +1,23 @@
 class Solution {
-public:
-
-    void reverseArrayBasedOnIndex(vector<int> &nums,int start, int end){
-        reverse(nums.begin()+start, nums.begin()+end);
+private:
+    void rotateByIndex(vector<int>& nums, int start, int end){
+        int n = nums.size();
+        int diff = end - start;
+        for(int i = 0;i<=diff/2;i++){
+            swap(nums[start+i], nums[end-i]);
+        }
     }
+public:
     void rotate(vector<int>& nums, int k) {
-        // 4, 3, 2, 1, 7, 6, 5
-        // 7, 6, 5, 4, 3, 2, 1
-        reverseArrayBasedOnIndex(nums, k+1, k+3);
+        int n = nums.size();
+        if(k>=n){
+            k%=n;
+        }
+        if(k==0){
+            return;
+        }
+        rotateByIndex(nums, n-k, n-1);
+        rotateByIndex(nums, 0, n-k-1);
+        rotateByIndex(nums, 0, n-1);
     }
 };
